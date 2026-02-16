@@ -1,0 +1,39 @@
+# ----------------------------------
+# 1. SITE IDENTITY
+# ----------------------------------
+base_url = "https://praveenrajsrivastav.github.io/portfolio"
+title = "Praveen"
+description = "Backend Engineer | Rust | Systems"
+default_language = "en"
+theme = "hermit"
+
+# THIS FIXES THE "TAGS" ERROR
+taxonomies = [
+    {name = "tags"},
+]
+
+# ----------------------------------
+# 2. NAVIGATION (The Bottom Bar!)
+# ----------------------------------
+[extra]
+# This creates the bottom menu links
+hermit_menu = [
+    { link = "/projects", name = "projects" },
+    { link = "/about", name = "about" }
+]
+
+# Social Icons
+hermit_social = [
+    { name = "github", link = "https://github.com/praveen24sriv" },
+    { name = "linkedin", link = "https://www.linkedin.com/in/praveen-raj-srivastav-a225a928a/" },
+    { name = "twitter", link = "https://x.com/praveen24_raj" }
+]
+
+# ----------------------------------
+# 3. COLORS (Neon Purple Theme)
+# ----------------------------------
+[extra.style]
+accent = "#a277ff"      # Neon Purple
+background = "#181818"  # Dark Gray
+text = "#e0e0e0"        # Light Gray
+
