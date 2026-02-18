@@ -1,13 +1,16 @@
 # ----------------------------------
 # 1. CORE BUILD SETTINGS
 # ----------------------------------
+
 base_url = "https://praveenrajsrivastav.github.io/portfolio"
+
 compile_sass = true
 build_search_index = false
 
 # ----------------------------------
 # 2. SITE IDENTITY
 # ----------------------------------
+
 title = "Praveen"
 description = "3rd Year @ NMIT | Backend & Systems"
 theme = "hermit"
@@ -19,10 +22,12 @@ taxonomies = [
 # ----------------------------------
 # 3. NAVIGATION & THEME LOGO
 # ----------------------------------
+
 [extra]
-# This MUST match your file in /static/me.png
 favicon = "me.png"
 
+# These are kept for hermit compat, but your custom index.html
+# handles navigation directly — no hermit menu is shown on homepage
 hermit_menu = [
     { link = "/projects", name = "projects" },
     { link = "/about", name = "about" }
@@ -35,8 +40,9 @@ hermit_social = [
 ]
 
 # ----------------------------------
-# 4. COLORS (Neon Purple Theme)
+# 4. COLORS (kept for any hermit subpages)
 # ----------------------------------
+
 [extra.style]
 accent = "#a277ff"
 background = "#181818"
