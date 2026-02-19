@@ -58,8 +58,8 @@
       background: var(--bg);
       color: var(--text);
       font-family: var(--font-mono);
-      font-size: 14px;
-      line-height: 1.7;
+      font-size: 15px;
+      line-height: 1.75;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
       /* leave room for floating nav at bottom */
@@ -81,7 +81,7 @@
     }
 
     /* ── LAYOUT ─────────────────────────────────────────────── */
-    .site { max-width: 860px; margin: 0 auto; padding: 56px 24px 0; }
+    .site { max-width: 1000px; margin: 0 auto; padding: 56px 48px 0; }
 
     /* ── FLOATING BOTTOM NAV ────────────────────────────────── */
     .bottom-nav {
@@ -93,7 +93,7 @@
       background: var(--bg-nav);
       border: 1px solid var(--border);
       border-radius: 100px;
-      padding: 10px 20px;
+      padding: 10px 24px;
       display: flex;
       align-items: center;
       gap: 4px;
@@ -110,21 +110,24 @@
       display: flex;
       align-items: center;
       gap: 7px;
-      padding: 7px 16px;
+      padding: 8px 18px;
       border-radius: 100px;
-      font-size: 12px;
-      letter-spacing: .04em;
-      color: var(--text-2);
-      transition: background .2s, color .2s;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: .03em;
+      color: var(--text);
+      opacity: .55;
+      transition: background .2s, color .2s, opacity .2s;
       white-space: nowrap;
     }
     .nav-item:hover {
       background: var(--bg-tag);
-      color: var(--text);
+      opacity: 1;
     }
     .nav-item.active {
       background: var(--accent-g);
       color: var(--accent);
+      opacity: 1;
     }
     .nav-item svg { flex-shrink: 0; }
 
@@ -259,7 +262,13 @@
     .divider {
       height: 1px;
       background: linear-gradient(90deg, transparent, var(--border), transparent);
-      margin: 60px 0;
+      margin: 32px 0;
+    }
+
+    @media (max-width: 640px) {
+      .site { padding-left: 20px; padding-right: 20px; }
+      .bottom-nav { padding: 8px 14px; }
+      .nav-item { padding: 7px 12px; font-size: 12px; }
     }
   </style>
 
