@@ -1,49 +1,44 @@
+
 # ----------------------------------
 # 1. CORE BUILD SETTINGS
 # ----------------------------------
 
 base_url = "https://praveenrajsrivastav.github.io/portfolio"
 
-compile_sass = true
+compile_sass = false        # using plain CSS now, no SASS needed
 build_search_index = false
 
 # ----------------------------------
 # 2. SITE IDENTITY
 # ----------------------------------
 
-title = "Praveen"
+title = "Praveen Raj Srivastav"
 description = "3rd Year @ NMIT | Backend & Systems"
+
+# hermit is kept so its asset pipeline still works,
+# but every page template is overridden by our /templates/ folder.
 theme = "hermit"
 
-taxonomies = [
-    {name = "tags"},
-]
+taxonomies = []             # removed — tags not needed for a portfolio
 
 # ----------------------------------
-# 3. NAVIGATION & THEME LOGO
+# 3. EXTRA SITE METADATA
 # ----------------------------------
 
 [extra]
 favicon = "me.png"
+author  = "Praveen Raj Srivastav"
 
-# These are kept for hermit compat, but your custom index.html
-# handles navigation directly — no hermit menu is shown on homepage
-hermit_menu = [
-    { link = "/projects", name = "projects" },
-    { link = "/about", name = "about" }
-]
-
-hermit_social = [
-    { name = "github", link = "https://github.com/praveen24sriv" },
-    { name = "linkedin", link = "https://www.linkedin.com/in/praveen-raj-srivastav-a226b728b/" },
-    { name = "twitter", link = "https://x.com/praveen24_raj" }
-]
+# hermit_menu and hermit_social intentionally removed —
+# navigation is handled by the floating bottom nav in base.html,
+# social links are hardcoded in the templates.
 
 # ----------------------------------
-# 4. COLORS (kept for any hermit subpages)
+# 4. THEME COLOR HINTS
+# (used if any hermit partial bleeds through on edge cases)
 # ----------------------------------
 
 [extra.style]
-accent = "#a277ff"
-background = "#181818"
-text = "#e0e0e0"
+accent     = "#a277ff"
+background = "#0f0f0f"
+text       = "#e2e2e2"

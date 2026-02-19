@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Praveen Raj Srivastav{% endblock %}</title>
+  <meta name="description" content="{% block description %}3rd Year @ NMIT | Backend & Systems{% endblock %}" />
+  <link rel="icon" href="{{ get_url(path='me.png') }}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── THEME TOKENS ──────────────────────────────────────── */
+    :root {
+      --accent:    #a277ff;
+      --accent-d:  #7c4dff;
+      --accent-g:  rgba(162,119,255,.12);
+      --green:     #57c785;
+      --font-disp: 'Syne', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --ease:      cubic-bezier(.25,.46,.45,.94);
+      --radius:    10px;
+      --nav-h:     72px; /* bottom nav height + padding clearance */
+    }
+
+    [data-theme="dark"] {
+      --bg:        #0f0f0f;
+      --bg-card:   #161616;
+      --bg-tag:    #1e1e1e;
+      --bg-nav:    rgba(18,18,18,0.85);
+      --border:    #242424;
+      --border-h:  #333;
+      --text:      #e2e2e2;
+      --text-2:    #888;
+      --muted:     #555;
+      --muted2:    #333;
+      --shadow:    rgba(0,0,0,.5);
+    }
+    [data-theme="light"] {
+      --bg:        #f5f4f0;
+      --bg-card:   #ffffff;
+      --bg-tag:    #f0eeea;
+      --bg-nav:    rgba(245,244,240,0.88);
+      --border:    #e4e2dd;
+      --border-h:  #ccc;
+      --text:      #1a1a1a;
+      --text-2:    #666;
+      --muted:     #999;
+      --muted2:    #ddd;
+      --shadow:    rgba(0,0,0,.12);
+    }
+
+    /* ── RESET ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 14px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      /* leave room for floating nav at bottom */
+      padding-bottom: calc(var(--nav-h) + 32px);
+      transition: background .25s, color .25s;
+    }
+    a { color: inherit; text-decoration: none; }
+    ::selection { background: var(--accent); color: #fff; }
+
+    /* ── NOISE OVERLAY ──────────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: .35;
+    }
+
+    /* ── LAYOUT ─────────────────────────────────────────────── */
+    .site { max-width: 860px; margin: 0 auto; padding: 56px 24px 0; }
+
+    /* ── FLOATING BOTTOM NAV ────────────────────────────────── */
+    .bottom-nav {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 200;
+      background: var(--bg-nav);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 8px 32px var(--shadow), 0 0 0 1px rgba(255,255,255,.04);
+      transition: box-shadow .3s;
+    }
+    .bottom-nav:hover {
+      box-shadow: 0 12px 40px var(--shadow), 0 0 0 1px rgba(162,119,255,.15);
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 16px;
+      border-radius: 100px;
+      font-size: 12px;
+      letter-spacing: .04em;
+      color: var(--text-2);
+      transition: background .2s, color .2s;
+      white-space: nowrap;
+    }
+    .nav-item:hover {
+      background: var(--bg-tag);
+      color: var(--text);
+    }
+    .nav-item.active {
+      background: var(--accent-g);
+      color: var(--accent);
+    }
+    .nav-item svg { flex-shrink: 0; }
+
+    .nav-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+      margin: 0 4px;
+    }
+
+    /* theme toggle button */
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px; height: 34px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      color: var(--text-2);
+      cursor: pointer;
+      transition: background .2s, color .2s;
+      font-size: 15px;
+      padding: 0;
+    }
+    .theme-toggle:hover {
+      background: var(--bg-tag);
+      color: var(--text);
+    }
+
+    /* ── PAGE TRANSITION ────────────────────────────────────── */
+    .page-wrap {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: pageIn .45s var(--ease) forwards;
+    }
+    @keyframes pageIn {
+      to { opacity: 1; transform: none; }
+    }
+
+    /* ── SHARED COMPONENTS ──────────────────────────────────── */
+    .sec-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .sec-label::before { content: ''; width: 20px; height: 1px; background: var(--accent); }
+
+    .sec-title {
+      font-family: var(--font-disp);
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      color: var(--text);
+      margin-bottom: 40px;
+      line-height: 1;
+    }
+
+    .tag {
+      background: var(--bg-tag);
+      border: 1px solid var(--border);
+      color: var(--text-2);
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 4px;
+      letter-spacing: .03em;
+      transition: border-color .15s, color .15s;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      border-radius: 7px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: .04em;
+      cursor: pointer;
+      transition: all .2s var(--ease);
+      border: 1px solid transparent;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(162,119,255,.25);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-2);
+      border-color: var(--border);
+    }
+    .btn-ghost:hover {
+      border-color: var(--border-h);
+      color: var(--text);
+      transform: translateY(-2px);
+    }
+
+    /* card base */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: border-color .2s, transform .2s, box-shadow .2s;
+    }
+    .card:hover {
+      border-color: rgba(162,119,255,.35);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px var(--shadow);
+    }
+
+    /* reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .55s var(--ease), transform .55s var(--ease);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* divider */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 60px 0;
+    }
+  </style>
+
+  {% block head %}{% endblock %}
+</head>
+<body>
+
+<div class="page-wrap">
+  <div class="site">
+    {% block content %}{% endblock %}
+  </div>
+</div>
+
+<!-- ── FLOATING BOTTOM NAV ───────────────────────────────── -->
+<nav class="bottom-nav" id="bottom-nav">
+
+  <a href="{{ get_url(path='/') }}" class="nav-item {% if current_path is defined and current_path == '/' %}active{% endif %}">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+    </svg>
+    home
+  </a>
+
+  <a href="{{ get_url(path='/projects') }}" class="nav-item {% if current_path is defined and current_path == '/projects/' %}active{% endif %}">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+    </svg>
+    projects
+  </a>
+
+  <a href="{{ get_url(path='/resume') }}" class="nav-item {% if current_path is defined and current_path == '/resume/' %}active{% endif %}">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+    </svg>
+    resume
+  </a>
+
+  <div class="nav-divider"></div>
+
+  <!-- Theme toggle -->
+  <button class="theme-toggle" id="theme-toggle" title="Toggle theme" aria-label="Toggle dark/light mode">
+    <span id="theme-icon">☀️</span>
+  </button>
+</nav>
+
+<script>
+  // ── THEME ───────────────────────────────────────────────
+  const root = document.documentElement;
+  const icon = document.getElementById('theme-icon');
+  const saved = localStorage.getItem('theme') ||
+    (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+
+  function applyTheme(t) {
+    root.setAttribute('data-theme', t);
+    icon.textContent = t === 'dark' ? '☀️' : '🌙';
+    localStorage.setItem('theme', t);
+  }
+  applyTheme(saved);
+
+  document.getElementById('theme-toggle').addEventListener('click', () => {
+    applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  // ── ACTIVE NAV ──────────────────────────────────────────
+  const path = window.location.pathname;
+  document.querySelectorAll('.nav-item').forEach(a => {
+    const href = a.getAttribute('href');
+    if (href === path || (href !== '/' && path.startsWith(href))) {
+      a.classList.add('active');
+    } else {
+      a.classList.remove('active');
+    }
+  });
+
+  // ── REVEAL ON SCROLL ─────────────────────────────────────
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        e.target.style.transitionDelay = (i % 4) * 70 + 'ms';
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>

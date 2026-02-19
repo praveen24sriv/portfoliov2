@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}404 — Page not found{% endblock %}
+
+{% block content %}
+<div style="
+  min-height: calc(100vh - 160px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 16px;
+">
+  <div style="font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--accent);">404</div>
+  <h1 style="font-family: var(--font-disp); font-size: clamp(36px, 6vw, 64px); font-weight: 800; letter-spacing: -2px; color: var(--text); line-height: 1;">
+    Nothing here<span style="color:var(--accent)">.</span>
+  </h1>
+  <p style="color: var(--text-2); font-size: 13px; max-width: 320px; line-height: 1.7;">
+    This page doesn't exist. Might've been moved, deleted, or never existed.
+  </p>
+  <a href="{{ get_url(path='/') }}" style="margin-top: 8px;" class="btn btn-primary">← go home</a>
+</div>
+{% endblock %}

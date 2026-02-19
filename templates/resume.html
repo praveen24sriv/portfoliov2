@@ -1,0 +1,295 @@
+{% extends "base.html" %}
+
+{% block title %}Résumé — Praveen Raj Srivastav{% endblock %}
+{% block description %}Résumé of Praveen Raj Srivastav — Backend & Systems Engineer{% endblock %}
+
+{% block head %}
+<style>
+  .resume-header {
+    padding: 56px 0 32px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .resume-header .sec-title { margin-bottom: 8px; }
+  .resume-header p {
+    color: var(--text-2);
+    font-size: 13px;
+  }
+
+  .resume-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  /* PDF viewer wrapper */
+  .pdf-outer {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg-card);
+    box-shadow: 0 4px 24px var(--shadow);
+    margin-bottom: 48px;
+  }
+
+  .pdf-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-card);
+  }
+  .pdf-toolbar-label {
+    font-size: 12px;
+    color: var(--text-2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .pdf-toolbar-label svg { color: var(--accent); }
+
+  .pdf-frame {
+    width: 100%;
+    height: 82vh;
+    min-height: 600px;
+    display: block;
+    border: none;
+    background: #fff;
+  }
+
+  /* Fallback when no PDF is uploaded yet */
+  .pdf-placeholder {
+    width: 100%;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 60px 20px;
+    color: var(--text-2);
+    font-size: 13px;
+    text-align: center;
+  }
+  .pdf-placeholder-icon {
+    font-size: 48px;
+    opacity: .3;
+  }
+  .pdf-placeholder strong {
+    color: var(--text);
+    font-size: 15px;
+    font-family: var(--font-disp);
+    font-weight: 700;
+  }
+  .pdf-placeholder code {
+    background: var(--bg-tag);
+    border: 1px solid var(--border);
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--accent);
+    display: block;
+    margin-top: 8px;
+    text-align: left;
+  }
+
+  /* inline resume fallback (HTML version) */
+  .resume-html {
+    display: none; /* shown only if no PDF */
+  }
+
+  .r-section { margin-bottom: 40px; }
+  .r-section-title {
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .r-name {
+    font-family: var(--font-disp);
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .r-tagline {
+    font-size: 13px;
+    color: var(--text-2);
+    margin-bottom: 20px;
+  }
+  .r-contact {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 12px;
+  }
+  .r-contact a { color: var(--accent); }
+  .r-contact a:hover { text-decoration: underline; }
+
+  .r-item { margin-bottom: 20px; }
+  .r-item-header { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+  .r-item-title { font-weight: 600; font-size: 13px; color: var(--text); font-family: var(--font-disp); }
+  .r-item-date { font-size: 11px; color: var(--muted); white-space: nowrap; }
+  .r-item-sub { font-size: 12px; color: var(--text-2); margin-bottom: 6px; }
+  .r-item ul { padding-left: 16px; }
+  .r-item li { font-size: 12.5px; color: var(--text-2); line-height: 1.7; margin-bottom: 3px; }
+
+  @media print {
+    .bottom-nav, .resume-actions, .pdf-toolbar { display: none !important; }
+    .pdf-outer { border: none; box-shadow: none; }
+    body { padding-bottom: 0; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="resume-header reveal">
+  <div>
+    <div class="sec-label">résumé</div>
+    <h1 class="sec-title">Praveen Raj Srivastav</h1>
+    <p>Backend Engineer · 3rd Year CSE @ NMIT, Bengaluru</p>
+  </div>
+  <div class="resume-actions">
+    <!-- Update href to your actual resume PDF path in /static/ -->
+    <a href="/resume.pdf" download="Praveen_Raj_Srivastav_Resume.pdf" class="btn btn-primary">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+      </svg>
+      download PDF
+    </a>
+    <a href="/resume.pdf" target="_blank" rel="noopener" class="btn btn-ghost">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/>
+      </svg>
+      open in new tab
+    </a>
+  </div>
+</div>
+
+<!-- PDF embed — drop your resume.pdf into /static/ and it'll show here -->
+<div class="pdf-outer reveal">
+  <div class="pdf-toolbar">
+    <div class="pdf-toolbar-label">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+      </svg>
+      Praveen_Raj_Srivastav_Resume.pdf
+    </div>
+    <a href="/resume.pdf" download class="btn btn-ghost" style="padding:5px 12px; font-size:11px;">↓ save</a>
+  </div>
+
+  <!-- 
+    OPTION A: If you have uploaded resume.pdf to /static/ — use the iframe below (it's active by default).
+    OPTION B: If no PDF yet — delete the iframe and uncomment the placeholder block below.
+  -->
+  <iframe
+    class="pdf-frame"
+    src="/resume.pdf"
+    title="Praveen Raj Srivastav — Résumé"
+    type="application/pdf"
+  ></iframe>
+
+  <!--
+  PLACEHOLDER — uncomment this block if you haven't added resume.pdf yet:
+
+  <div class="pdf-placeholder">
+    <div class="pdf-placeholder-icon">📄</div>
+    <strong>No résumé uploaded yet</strong>
+    <span>Drop your PDF into <code>/static/resume.pdf</code> and it'll appear here automatically.</span>
+  </div>
+  -->
+
+</div>
+
+<!-- 
+  ── HTML RESUME FALLBACK ──────────────────────────────────
+  This is a clean HTML version that renders if someone's browser can't show the PDF.
+  Edit it to match your actual details.
+-->
+<details style="margin-top: -20px; margin-bottom: 40px;">
+  <summary style="cursor:pointer; font-size:12px; color:var(--text-2); margin-bottom: 16px; letter-spacing:.05em;">
+    ↳ view as HTML (fallback)
+  </summary>
+
+  <div class="resume-html" style="display:block; background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:40px; margin-top:16px;">
+
+    <div class="r-section">
+      <div class="r-name">Praveen Raj Srivastav</div>
+      <div class="r-tagline">Backend Engineer · 3rd Year CSE @ NMIT, Bengaluru</div>
+      <div class="r-contact">
+        <a href="mailto:your@email.com">your@email.com</a>
+        <a href="https://github.com/praveen24sriv" target="_blank">github.com/praveen24sriv</a>
+        <a href="https://linkedin.com/in/praveen-raj-srivastav-a226b728b" target="_blank">linkedin</a>
+        <span>Bengaluru, IN</span>
+      </div>
+    </div>
+
+    <div class="r-section">
+      <div class="r-section-title">Education</div>
+      <div class="r-item">
+        <div class="r-item-header">
+          <span class="r-item-title">B.E. Computer Science Engineering</span>
+          <span class="r-item-date">Aug 2022 — May 2026</span>
+        </div>
+        <div class="r-item-sub">Nitte Meenakshi Institute of Technology, Bengaluru</div>
+      </div>
+    </div>
+
+    <div class="r-section">
+      <div class="r-section-title">Experience</div>
+      <div class="r-item">
+        <div class="r-item-header">
+          <span class="r-item-title">Your Role / Internship</span>
+          <span class="r-item-date">Month Year — Month Year</span>
+        </div>
+        <div class="r-item-sub">Company Name · Location</div>
+        <ul>
+          <li>What you did, quantified if possible.</li>
+          <li>Another bullet. Keep these impact-oriented.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="r-section">
+      <div class="r-section-title">Projects</div>
+      <div class="r-item">
+        <div class="r-item-header">
+          <span class="r-item-title">ProjectName</span>
+          <span class="r-item-date">Rust · PostgreSQL · Docker</span>
+        </div>
+        <ul>
+          <li>What it does and why it matters. One or two bullets.</li>
+          <li>Technical detail that shows depth.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="r-section">
+      <div class="r-section-title">Skills</div>
+      <div style="display:flex; flex-wrap:wrap; gap:8px;">
+        <span class="tag">Rust</span>
+        <span class="tag">Go</span>
+        <span class="tag">Python</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">Redis</span>
+        <span class="tag">Docker</span>
+        <span class="tag">Linux</span>
+        <span class="tag">Git</span>
+        <span class="tag">Node.js</span>
+      </div>
+    </div>
+
+  </div>
+</details>
+
+{% endblock %}
