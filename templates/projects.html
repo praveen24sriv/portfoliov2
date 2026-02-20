@@ -1,23 +1,22 @@
 {% extends "base.html" %}
 
 {% block title %}Projects — Praveen Raj Srivastav{% endblock %}
-{% block description %}Things I've built — backend projects, systems work, and experiments.{% endblock %}
+{% block description %}Things I've built — fullstack apps, backend systems, and automation tools.{% endblock %}
 
 {% block head %}
 <style>
   .page-header {
-    padding: 56px 0 48px;
+    padding: 56px 0 40px;
   }
   .page-header .sec-label { margin-bottom: 12px; }
   .page-header .sec-title { margin-bottom: 12px; }
   .page-header p {
     color: var(--text-2);
-    font-size: 13.5px;
+    font-size: 16px;
     max-width: 480px;
     line-height: 1.8;
   }
 
-  /* filter tabs */
   .filter-row {
     display: flex;
     gap: 8px;
@@ -25,9 +24,9 @@
     margin-bottom: 40px;
   }
   .filter-btn {
-    padding: 5px 14px;
+    padding: 6px 16px;
     border-radius: 100px;
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: .05em;
     border: 1px solid var(--border);
     background: transparent;
@@ -42,7 +41,6 @@
     color: var(--accent);
   }
 
-  /* project grid */
   .projects-list { display: grid; gap: 16px; }
 
   .project-card {
@@ -54,7 +52,7 @@
     grid-template-columns: 1fr auto;
     gap: 20px;
     align-items: start;
-    transition: border-color .2s, transform .2s, box-shadow .2s;
+    transition: border-color .2s, transform .2s, box-shadow .2s, opacity .25s;
     position: relative;
     overflow: hidden;
     cursor: default;
@@ -79,10 +77,27 @@
   .project-card:hover::before { opacity: 1; }
 
   .proj-num {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--muted);
     letter-spacing: .1em;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
+  }
+  .proj-category {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .proj-category::before {
+    content: '';
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: .5;
   }
   .proj-title {
     font-family: var(--font-disp);
@@ -94,11 +109,11 @@
     line-height: 1.1;
   }
   .proj-desc {
-    font-size: 13px;
+    font-size: 15px;
     color: var(--text-2);
     line-height: 1.75;
     margin-bottom: 18px;
-    max-width: 560px;
+    max-width: 580px;
   }
   .proj-stack { display: flex; flex-wrap: wrap; gap: 7px; }
 
@@ -126,19 +141,6 @@
     transform: scale(1.08);
   }
 
-  /* featured badge */
-  .proj-featured {
-    position: absolute;
-    top: 18px; right: 18px;
-    font-size: 10px;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    color: var(--accent);
-    border: 1px solid rgba(162,119,255,.3);
-    padding: 3px 10px;
-    border-radius: 100px;
-  }
-
   @media (max-width: 600px) {
     .project-card { grid-template-columns: 1fr; }
     .proj-links { flex-direction: row; align-items: flex-start; }
@@ -151,102 +153,123 @@
 <div class="page-header reveal">
   <div class="sec-label">projects</div>
   <h1 class="sec-title">Things I've built</h1>
-  <p>
-    A mix of backend systems, CLI tools, and experiments.
-    Mostly things I built because I wanted them to exist.
-  </p>
+  <p>Fullstack apps, backend systems, and automation tools. Built to solve real problems — or just to see if I could.</p>
 </div>
 
 <div class="filter-row reveal">
   <button class="filter-btn active" data-filter="all">all</button>
+  <button class="filter-btn" data-filter="fullstack">fullstack</button>
   <button class="filter-btn" data-filter="backend">backend</button>
-  <button class="filter-btn" data-filter="systems">systems</button>
-  <button class="filter-btn" data-filter="tools">tools</button>
+  <button class="filter-btn" data-filter="automation">automation</button>
 </div>
 
 <div class="projects-list">
 
-  <!-- ── PROJECT 1 ── Replace with your real projects ──── -->
+  <!-- ── NEXUS ───────────────────────────────────────────── -->
   <div class="project-card reveal" data-category="backend">
     <div>
       <div class="proj-num">01</div>
-      <div class="proj-title">ProjectName</div>
+      <div class="proj-category">backend</div>
+      <div class="proj-title">Nexus</div>
       <p class="proj-desc">
-        Short, confident description of what this is, the problem it solves,
-        and what's technically interesting about it. Two sentences max.
+        Backend architecture for a video hosting and threads/tweets platform.
+        Features advanced MongoDB aggregation pipelines for feed generation,
+        JWT authentication, and Cloudinary integration for scalable media management.
       </p>
       <div class="proj-stack">
-        <span class="tag">Rust</span>
-        <span class="tag">PostgreSQL</span>
-        <span class="tag">Docker</span>
+        <span class="tag">Node.js</span>
+        <span class="tag">Express</span>
+        <span class="tag">MongoDB</span>
+        <span class="tag">JWT</span>
+        <span class="tag">Cloudinary</span>
         <span class="tag">REST API</span>
       </div>
     </div>
     <div class="proj-links">
-      <a href="https://github.com/praveen24sriv/YOUR_REPO" target="_blank" rel="noopener" class="icon-link" title="GitHub">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
-        </svg>
-      </a>
-      <a href="#" target="_blank" rel="noopener" class="icon-link" title="Live demo">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/>
-        </svg>
+      <a href="https://github.com/praveen24sriv/Nexus" target="_blank" rel="noopener" class="icon-link" title="GitHub">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
       </a>
     </div>
   </div>
 
-  <!-- ── PROJECT 2 ──────────────────────────────────────── -->
-  <div class="project-card reveal" data-category="systems">
+  <!-- ── ZENTRY ──────────────────────────────────────────── -->
+  <div class="project-card reveal" data-category="fullstack">
     <div>
       <div class="proj-num">02</div>
-      <div class="proj-title">AnotherProject</div>
+      <div class="proj-category">fullstack</div>
+      <div class="proj-title">Zentry</div>
       <p class="proj-desc">
-        What this does. Why it's interesting. Keep it punchy —
-        recruiters spend 8 seconds on a portfolio.
+        Production-grade blogging web app built with React.js and Appwrite.
+        Full authentication, rich text editing, and a clean reader experience —
+        designed for performance with a modern component architecture.
       </p>
       <div class="proj-stack">
-        <span class="tag">Go</span>
-        <span class="tag">gRPC</span>
-        <span class="tag">Redis</span>
+        <span class="tag">React.js</span>
+        <span class="tag">Appwrite</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">CSS</span>
       </div>
     </div>
     <div class="proj-links">
-      <a href="https://github.com/praveen24sriv" target="_blank" rel="noopener" class="icon-link" title="GitHub">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
-        </svg>
+      <a href="https://github.com/praveen24sriv/Zentry" target="_blank" rel="noopener" class="icon-link" title="GitHub">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
       </a>
     </div>
   </div>
 
-  <!-- ── PROJECT 3 ──────────────────────────────────────── -->
-  <div class="project-card reveal" data-category="tools">
+  <!-- ── TOMZI ───────────────────────────────────────────── -->
+  <div class="project-card reveal" data-category="fullstack">
     <div>
       <div class="proj-num">03</div>
-      <div class="proj-title">CLITool</div>
+      <div class="proj-category">fullstack</div>
+      <div class="proj-title">Tomzi</div>
       <p class="proj-desc">
-        A command-line tool for something. Describe the use case and who it's for.
+        Production-grade food delivery app built with React and Redux Toolkit,
+        optimized for performance and scalability. Includes cart management,
+        live order state, and a full unit test suite with Jest.
+      </p>
+      <div class="proj-stack">
+        <span class="tag">React.js</span>
+        <span class="tag">Redux Toolkit</span>
+        <span class="tag">Tailwind CSS</span>
+        <span class="tag">Jest</span>
+        <span class="tag">JavaScript</span>
+      </div>
+    </div>
+    <div class="proj-links">
+      <a href="https://github.com/praveen24sriv/Tomzi" target="_blank" rel="noopener" class="icon-link" title="GitHub">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- ── REDDIT BOT ──────────────────────────────────────── -->
+  <div class="project-card reveal" data-category="automation">
+    <div>
+      <div class="proj-num">04</div>
+      <div class="proj-category">automation</div>
+      <div class="proj-title">Reddit Bot</div>
+      <p class="proj-desc">
+        A Python bot that monitors Reddit comments in real time and automatically
+        replies to comments containing the keyword "Sad" with positive or funny quotes.
+        Built with PRAW and the Reddit API.
       </p>
       <div class="proj-stack">
         <span class="tag">Python</span>
-        <span class="tag">Click</span>
-        <span class="tag">SQLite</span>
+        <span class="tag">PRAW</span>
+        <span class="tag">Reddit API</span>
       </div>
     </div>
     <div class="proj-links">
-      <a href="https://github.com/praveen24sriv" target="_blank" rel="noopener" class="icon-link" title="GitHub">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
-        </svg>
+      <a href="https://github.com/praveen24sriv/Reddit-Bot-" target="_blank" rel="noopener" class="icon-link" title="GitHub">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
       </a>
     </div>
   </div>
 
-</div><!-- /projects-list -->
+</div>
 
 <script>
-  // ── FILTER ──────────────────────────────────────────────
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -254,14 +277,13 @@
       const f = btn.dataset.filter;
       document.querySelectorAll('.project-card').forEach(card => {
         const show = f === 'all' || card.dataset.category === f;
-        card.style.opacity = show ? '1' : '0.25';
+        card.style.opacity = show ? '1' : '0.2';
         card.style.transform = show ? '' : 'scale(0.98)';
         card.style.pointerEvents = show ? '' : 'none';
       });
     });
   });
 
-  // ── MOUSE GLOW ──────────────────────────────────────────
   document.querySelectorAll('.project-card').forEach(card => {
     card.addEventListener('mousemove', e => {
       const r = card.getBoundingClientRect();
