@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Praveen Raj Srivastav — Backend & Systems{% endblock %}
+{% block title %}Praveen — Fullstack & Systems{% endblock %}
 
 {% block head %}
 <style>
@@ -52,10 +52,10 @@
 
   .hero-name {
     font-family: var(--font-disp);
-    font-size: clamp(52px, 9vw, 96px);
+    font-size: clamp(40px, 6.5vw, 72px);
     font-weight: 800;
-    letter-spacing: -3px;
-    line-height: .9;
+    letter-spacing: -2px;
+    line-height: .95;
     color: var(--text);
     opacity: 0;
     animation: fadeUp .7s var(--ease) .15s forwards;
@@ -160,21 +160,60 @@
   }
   .skill-group {
     background: var(--bg-card);
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-h);
     border-radius: var(--radius);
-    padding: 18px 20px;
-    transition: border-color .2s, transform .2s;
+    padding: 22px 24px;
+    transition: border-color .25s, transform .25s, box-shadow .25s;
+    position: relative;
+    overflow: hidden;
+  }
+  /* top gradient line — always visible, subtle */
+  .skill-group::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(162,119,255,.3), transparent);
+    transition: opacity .25s;
+  }
+  /* inner glow that appears on hover */
+  .skill-group::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(162,119,255,.07), transparent 70%);
+    opacity: 0;
+    transition: opacity .3s;
+    pointer-events: none;
   }
   .skill-group:hover {
-    border-color: rgba(162,119,255,.35);
-    transform: translateY(-2px);
+    border-color: rgba(162,119,255,.45);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(162,119,255,.1);
   }
+  .skill-group:hover::before {
+    background: linear-gradient(90deg, transparent, rgba(162,119,255,.7), transparent);
+  }
+  .skill-group:hover::after { opacity: 1; }
+
   .skill-group-label {
-    font-size: 12px;
-    letter-spacing: .12em;
+    font-size: 11px;
+    letter-spacing: .14em;
     text-transform: uppercase;
     color: var(--accent);
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  /* accent dot before label */
+  .skill-group-label::before {
+    content: '';
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: .7;
+    flex-shrink: 0;
   }
   .skill-tags { display: flex; flex-wrap: wrap; gap: 7px; }
 
@@ -211,7 +250,16 @@
   <div class="hero-cta">
     <a href="{{ get_url(path='/projects') }}" class="btn btn-primary">view projects →</a>
     <a href="{{ get_url(path='/resume') }}" class="btn btn-ghost">résumé</a>
-    <a href="mailto:your@email.com" class="btn btn-ghost">say hello</a>
+    <div class="copy-email-wrap">
+      <button class="copy-email-btn" data-email="praveen24.srivastav@gmail.com">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+        say hello
+      </button>
+      <div class="copy-toast">✓ copied!</div>
+    </div>
   </div>
 </section>
 
@@ -237,6 +285,7 @@
       </p>
       <p>
         Currently looking for <strong>fullstack or backend internships</strong>.
+        Open to any interesting problems.</p>
         Open to any interesting problems.
       </p>
     </div>
@@ -276,6 +325,7 @@
     <div class="skill-group reveal">
       <div class="skill-group-label">Frontend</div>
       <div class="skill-tags">
+        <span class="tag">TypeScript</span>
         <span class="tag">React.js</span>
         <span class="tag">Redux Toolkit</span>
         <span class="tag">Tailwind CSS</span>
@@ -288,16 +338,18 @@
       <div class="skill-tags">
         <span class="tag">Node.js</span>
         <span class="tag">Express</span>
+        <span class="tag">GraphQL</span>
         <span class="tag">REST API</span>
         <span class="tag">JWT</span>
         <span class="tag">Python</span>
       </div>
     </div>
     <div class="skill-group reveal">
-      <div class="skill-group-label">Databases</div>
+      <div class="skill-group-label">Databases & ORM</div>
       <div class="skill-tags">
         <span class="tag">MongoDB</span>
         <span class="tag">PostgreSQL</span>
+        <span class="tag">DrizzleORM</span>
         <span class="tag">Appwrite</span>
         <span class="tag">Redis</span>
       </div>
