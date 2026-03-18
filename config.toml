@@ -3,7 +3,7 @@
 # 1. CORE BUILD SETTINGS
 # ----------------------------------
 
-base_url = "https://praveen24sriv.github.io/portfoliov2/"
+base_url = "https://praveen24sriv.github.io/portfoliov2"
 
 compile_sass = false        # using plain CSS now, no SASS needed
 build_search_index = false
