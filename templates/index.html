@@ -249,7 +249,7 @@
 
   <div class="hero-cta">
     <a href="{{ get_url(path='/projects') }}" class="btn btn-primary">view projects →</a>
-    <a href="{{ get_url(path='/resume') }}" class="btn btn-ghost">résumé</a>
+    <a href="{{ get_url(path='resume') }}" class="btn btn-ghost">résumé</a>
     <div class="copy-email-wrap">
       <button class="copy-email-btn" data-email="praveen24.srivastav@gmail.com">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -291,7 +291,7 @@
     </div>
 
     <div class="about-card">
-      <div class="about-avatar"><img class="about-avatar" src="/m2.png" alt="Praveen"></div>
+      <img class="about-avatar" src="{{ get_url(path='m2.png') }}" alt="Praveen">
       <div class="about-stat">
         <span class="stat-k">status</span>
         <span class="stat-v online">● open to work</span>
