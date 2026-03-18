@@ -1,39 +1,23 @@
-name: Deploy Zola to GitHub Pages
+name: Deploy Zola to Pages
 
 on:
   push:
-    branches: ["main"] # Update to "master" if that is your default branch
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
+    branches:
+      - main   # change to 'master' if that's your branch
 
 jobs:
   build:
+    name: Publish site
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
     steps:
-      - name: Checkout repository
+      - name: Checkout main
         uses: actions/checkout@v4
         with:
-          submodules: recursive # Essential if your Zola theme is added as a git submodule
+          submodules: 'recursive'   # needed if your theme is a git submodule
 
-      - name: Build Zola and upload artifact
-        uses: getzola/github-pages@v0.29.0
-        with:
-          zola_version: "0.19.2" # Feel free to update this to match your local Zola version
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Build and deploy
+        uses: shalzz/zola-deploy-action@v0.21.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
