@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Résumé — Praveen Raj Srivastav</title>
+  <meta name="description" content="Résumé of Praveen Raj Srivastav — Backend & Systems Engineer" />
+  <link rel="icon" href="https://praveen24sriv.github.io/portfoliov2/me.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── THEME TOKENS ──────────────────────────────────────── */
+    :root {
+      --accent:    #a277ff;
+      --accent-d:  #7c4dff;
+      --accent-g:  rgba(162,119,255,.12);
+      --green:     #57c785;
+      --font-disp: 'Syne', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --ease:      cubic-bezier(.25,.46,.45,.94);
+      --radius:    10px;
+      --nav-h:     72px; /* bottom nav height + padding clearance */
+    }
+
+    [data-theme="dark"] {
+      --bg:        #0f0f0f;
+      --bg-card:   #161616;
+      --bg-tag:    #1e1e1e;
+      --bg-nav:    rgba(18,18,18,0.85);
+      --border:    #242424;
+      --border-h:  #333;
+      --text:      #e2e2e2;
+      --text-2:    #888;
+      --muted:     #555;
+      --muted2:    #333;
+      --shadow:    rgba(0,0,0,.5);
+    }
+    [data-theme="light"] {
+      --bg:        #f5f4f0;
+      --bg-card:   #ffffff;
+      --bg-tag:    #f0eeea;
+      --bg-nav:    rgba(245,244,240,0.88);
+      --border:    #e4e2dd;
+      --border-h:  #ccc;
+      --text:      #1a1a1a;
+      --text-2:    #666;
+      --muted:     #999;
+      --muted2:    #ddd;
+      --shadow:    rgba(0,0,0,.12);
+    }
+
+    /* ── RESET ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 16px;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      /* leave room for floating nav at bottom */
+      padding-bottom: calc(var(--nav-h) + 32px);
+      transition: background .25s, color .25s;
+    }
+    a { color: inherit; text-decoration: none; }
+    ::selection { background: var(--accent); color: #fff; }
+
+    /* ── NOISE OVERLAY ──────────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: .35;
+    }
+
+    /* ── LAYOUT ─────────────────────────────────────────────── */
+    .site { max-width: 1000px; margin: 0 auto; padding: 56px 48px 0; }
+
+    /* ── FLOATING BOTTOM NAV ────────────────────────────────── */
+    .bottom-nav {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 200;
+      background: var(--bg-nav);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 8px 32px var(--shadow), 0 0 0 1px rgba(255,255,255,.04);
+      transition: box-shadow .3s;
+    }
+    .bottom-nav:hover {
+      box-shadow: 0 12px 40px var(--shadow), 0 0 0 1px rgba(162,119,255,.15);
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: .03em;
+      color: var(--text);
+      opacity: .55;
+      transition: background .2s, color .2s, opacity .2s;
+      white-space: nowrap;
+    }
+    .nav-item:hover {
+      background: var(--bg-tag);
+      opacity: 1;
+    }
+    .nav-item.active {
+      background: var(--accent-g);
+      color: var(--accent);
+      opacity: 1;
+    }
+    .nav-item svg { flex-shrink: 0; }
+
+    /* social icon-only buttons in nav */
+    .nav-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px; height: 32px;
+      border-radius: 100px;
+      color: var(--text);
+      opacity: .45;
+      transition: opacity .2s, background .2s;
+      flex-shrink: 0;
+    }
+    .nav-icon:hover {
+      opacity: 1;
+      background: var(--bg-tag);
+    }
+
+    .nav-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+      margin: 0 4px;
+    }
+
+    /* theme toggle button */
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px; height: 34px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      color: var(--text-2);
+      cursor: pointer;
+      transition: background .2s, color .2s;
+      font-size: 15px;
+      padding: 0;
+    }
+    .theme-toggle:hover {
+      background: var(--bg-tag);
+      color: var(--text);
+    }
+
+    /* ── PAGE TRANSITION ────────────────────────────────────── */
+    .page-wrap {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: pageIn .45s var(--ease) forwards;
+    }
+    @keyframes pageIn {
+      to { opacity: 1; transform: none; }
+    }
+
+    /* ── SHARED COMPONENTS ──────────────────────────────────── */
+    .sec-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .sec-label::before { content: ''; width: 20px; height: 1px; background: var(--accent); }
+
+    .sec-title {
+      font-family: var(--font-disp);
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      color: var(--text);
+      margin-bottom: 40px;
+      line-height: 1;
+    }
+
+    .tag {
+      background: var(--bg-tag);
+      border: 1px solid var(--border-h);
+      color: var(--text);
+      font-size: 13px;
+      padding: 5px 12px;
+      border-radius: 5px;
+      letter-spacing: .03em;
+      opacity: .85;
+      transition: border-color .15s, color .15s, opacity .15s;
+    }
+    .tag:hover {
+      border-color: rgba(162,119,255,.5);
+      opacity: 1;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 24px;
+      border-radius: 7px;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      letter-spacing: .04em;
+      cursor: pointer;
+      transition: all .2s var(--ease);
+      border: 1px solid transparent;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(162,119,255,.25);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-2);
+      border-color: var(--border);
+    }
+    .btn-ghost:hover {
+      border-color: var(--border-h);
+      color: var(--text);
+      transform: translateY(-2px);
+    }
+
+    /* card base */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: border-color .2s, transform .2s, box-shadow .2s;
+    }
+    .card:hover {
+      border-color: rgba(162,119,255,.35);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px var(--shadow);
+    }
+
+    /* reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .55s var(--ease), transform .55s var(--ease);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* divider */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 32px 0;
+    }
+
+    /* ── PROGRESS BAR ───────────────────────────────────────── */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-d), var(--accent), #c8a8ff);
+      z-index: 9999;
+      transition: width .2s var(--ease), opacity .4s;
+      box-shadow: 0 0 8px rgba(162,119,255,.6);
+      pointer-events: none;
+    }
+    #progress-bar.done {
+      width: 100% !important;
+      opacity: 0;
+    }
+
+    /* ── COPY EMAIL BUTTON ──────────────────────────────────── */
+    .copy-email-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+    .copy-email-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 24px;
+      border-radius: 7px;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      letter-spacing: .04em;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-2);
+      cursor: pointer;
+      transition: all .2s var(--ease);
+    }
+    .copy-email-btn:hover {
+      border-color: var(--border-h);
+      color: var(--text);
+      transform: translateY(-2px);
+    }
+    .copy-email-btn.copied {
+      border-color: var(--green);
+      color: var(--green);
+      transform: translateY(-2px);
+    }
+    .copy-toast {
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: var(--bg-card);
+      border: 1px solid var(--green);
+      color: var(--green);
+      font-size: 11px;
+      letter-spacing: .08em;
+      padding: 4px 12px;
+      border-radius: 100px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s, transform .2s;
+    }
+    .copy-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 640px) {
+      .site { padding-left: 20px; padding-right: 20px; }
+      .bottom-nav { padding: 8px 14px; }
+      .nav-item { padding: 7px 12px; font-size: 12px; }
+    }
+  </style>
+
+  
+<style>
+  .resume-header {
+    padding: 56px 0 32px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .resume-header .sec-title { margin-bottom: 8px; }
+  .resume-header p {
+    color: var(--text-2);
+    font-size: 13px;
+  }
+
+  .resume-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  /* PDF viewer wrapper */
+  .pdf-outer {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg-card);
+    box-shadow: 0 4px 24px var(--shadow);
+    margin-bottom: 48px;
+  }
+
+  .pdf-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-card);
+  }
+  .pdf-toolbar-label {
+    font-size: 12px;
+    color: var(--text-2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .pdf-toolbar-label svg { color: var(--accent); }
+
+  .pdf-frame {
+    width: 100%;
+    height: 82vh;
+    min-height: 600px;
+    display: block;
+    border: none;
+    background: #fff;
+  }
+
+  /* Fallback when no PDF is uploaded yet */
+  .pdf-placeholder {
+    width: 100%;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 60px 20px;
+    color: var(--text-2);
+    font-size: 13px;
+    text-align: center;
+  }
+  .pdf-placeholder-icon {
+    font-size: 48px;
+    opacity: .3;
+  }
+  .pdf-placeholder strong {
+    color: var(--text);
+    font-size: 15px;
+    font-family: var(--font-disp);
+    font-weight: 700;
+  }
+  .pdf-placeholder code {
+    background: var(--bg-tag);
+    border: 1px solid var(--border);
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--accent);
+    display: block;
+    margin-top: 8px;
+    text-align: left;
+  }
+
+  /* inline resume fallback (HTML version) */
+  .resume-html {
+    display: none; /* shown only if no PDF */
+  }
+
+  .r-section { margin-bottom: 40px; }
+  .r-section-title {
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .r-name {
+    font-family: var(--font-disp);
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .r-tagline {
+    font-size: 13px;
+    color: var(--text-2);
+    margin-bottom: 20px;
+  }
+  .r-contact {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 12px;
+  }
+  .r-contact a { color: var(--accent); }
+  .r-contact a:hover { text-decoration: underline; }
+
+  .r-item { margin-bottom: 20px; }
+  .r-item-header { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+  .r-item-title { font-weight: 600; font-size: 13px; color: var(--text); font-family: var(--font-disp); }
+  .r-item-date { font-size: 11px; color: var(--muted); white-space: nowrap; }
+  .r-item-sub { font-size: 12px; color: var(--text-2); margin-bottom: 6px; }
+  .r-item ul { padding-left: 16px; }
+  .r-item li { font-size: 12.5px; color: var(--text-2); line-height: 1.7; margin-bottom: 3px; }
+
+  @media print {
+    .bottom-nav, .resume-actions, .pdf-toolbar { display: none !important; }
+    .pdf-outer { border: none; box-shadow: none; }
+    body { padding-bottom: 0; }
+  }
+</style>
+
+</head>
+<body>
+
+<!-- ── PROGRESS BAR ──────────────────────────────────────── -->
+<div id="progress-bar"></div>
+
+<div class="page-wrap">
+  <div class="site">
+    
+
+<div class="resume-header reveal">
+  <div>
+    <div class="sec-label">résumé</div>
+    <h1 class="sec-title">Praveen Raj Srivastav</h1>
+    <p>Backend Engineer · 3rd Year CSE @ NMIT, Bengaluru</p>
+  </div>
+  <div class="resume-actions">
+    <!-- Update href to your actual resume PDF path in /static/ -->
+    <a href="https://praveen24sriv.github.io/portfoliov2/resume.pdf" download="Praveen_Raj_Srivastav_Resume.pdf" class="btn btn-primary">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+      </svg>
+      download PDF
+    </a>
+    <a href="https://praveen24sriv.github.io/portfoliov2/resume.pdf" target="_blank" rel="noopener" class="btn btn-ghost">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/>
+      </svg>
+      open in new tab
+    </a>
+  </div>
+</div>
+
+<!-- PDF embed — drop your resume.pdf into /static/ and it'll show here -->
+<div class="pdf-outer reveal">
+  <div class="pdf-toolbar">
+    <div class="pdf-toolbar-label">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+      </svg>
+      Praveen_Raj_Srivastav_Resume.pdf
+    </div>
+    <a href="https://praveen24sriv.github.io/portfoliov2/resume.pdf" download class="btn btn-ghost" style="padding:5px 12px; font-size:11px;">↓ save</a>
+  </div>
+
+  <!-- 
+    OPTION A: If you have uploaded resume.pdf to /static/ — use the iframe below (it's active by default).
+    OPTION B: If no PDF yet — delete the iframe and uncomment the placeholder block below.
+  -->
+  <iframe
+    class="pdf-frame"
+    src="https://praveen24sriv.github.io/portfoliov2/resume.pdf"
+    title="Praveen Raj Srivastav — Résumé"
+    type="application/pdf"
+  ></iframe>
+
+  <!--
+  PLACEHOLDER — uncomment this block if you haven't added resume.pdf yet:
+
+  <div class="pdf-placeholder">
+    <div class="pdf-placeholder-icon">📄</div>
+    <strong>No résumé uploaded yet</strong>
+    <span>Drop your PDF into <code>/static/resume.pdf</code> and it'll appear here automatically.</span>
+  </div>
+  -->
+
+</div>
+
+<!-- 
+  ── HTML RESUME FALLBACK ──────────────────────────────────
+  This is a clean HTML version that renders if someone's browser can't show the PDF.
+  Edit it to match your actual details.
+-->
+<details style="margin-top: -20px; margin-bottom: 40px;">
+  <summary style="cursor:pointer; font-size:12px; color:var(--text-2); margin-bottom: 16px; letter-spacing:.05em;">
+    ↳ view as HTML (fallback)
+  </summary>
+
+  <div class="resume-html" style="display:block; background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:40px; margin-top:16px;">
+
+    <div class="r-section">
+      <div class="r-name">Praveen Raj Srivastav</div>
+      <div class="r-tagline">Backend & Fullstack Developer · ECE @ NMIT, Bengaluru</div>
+      <div class="r-contact">
+        <div class="copy-email-wrap">
+          <button class="copy-email-btn" data-email="praveen24.srivastav@gmail.com" style="padding:2px 0; border:none; font-size:13px;">
+            praveen24.srivastav@gmail.com
+          </button>
+          <div class="copy-toast">✓ copied!</div>
+        </div>
+        <span>+91 9693154149</span>
+        <a href="https://github.com/praveen24sriv" target="_blank">github.com/praveen24sriv</a>
+        <a href="https://linkedin.com/in/praveen-raj-srivastav-a226b728b" target="_blank">linkedin</a>
+        <span>Bangalore, India</span>
+      </div>
+    </div>
+
+    <div class="r-section">
+      <div class="r-section-title">Education</div>
+      <div class="r-item">
+        <div class="r-item-header">
+          <span class="r-item-title">B.E. in Electronics & Communication Engineering</span>
+          <span class="r-item-date">Aug 2023 — May 2027</span>
+        </div>
+        <div class="r-item-sub">Nitte Meenakshi Institute of Technology, Bengaluru · CGPA: 9.26/10</div>
+      </div>
+      <div class="r-item">
+        <div class="r-item-header">
+          <span class="r-item-title">DAV Public School, Hehal</span>
+          <span class="r-item-date">2020 — 2022</span>
+        </div>
+        <div class="r-item-sub">Class 12 (CBSE): 90% · Class 10 (CBSE): 93.4% · Ranchi, India</div>
+      </div>
+    </div>
+
+    <div class="r-section">
+      <div class="r-section-title">Experience</div>
+      <div class="r-item">
+        <div class="r-item-header">
+          <span class="r-item-title">Open Source Contributor — Palisadoes Foundation (Talawa API)</span>
+          <span class="r-item-date">2025</span>
+        </div>
+        <div class="r-item-sub">Backend & Testing Engineer · Remote</div>
+        <ul>
+          <li>Authored 40+ unit & integration tests using Vitest/Jest for a production TypeScript/GraphQL API, achieving 90%+ code coverage and reducing CI regression failures by ~60%.</li>
+          <li>Reviewed 10+ pull requests, resolved 5+ critical bugs, and shipped 3 backend features on a TypeScript + GraphQL + Node.js codebase; containerized via Docker with GitHub Actions CI/CD.</li>
+        </ul>
+      </div>
+      <div class="r-item">
+        <div class="r-item-header">
+          <span class="r-item-title">Full Stack Developer Intern — Shopto AI</span>
+          <span class="r-item-date">2025</span>
+        </div>
+        <div class="r-item-sub">Bangalore, India</div>
+        <ul>
+          <li>Engineered a MERN-stack Restaurant POS managing 5+ concurrent order streams, reducing manual billing errors by ~40% and cutting order-to-kitchen dispatch latency by ~30%.</li>
+          <li>Optimized 4 high-traffic REST APIs with Redux Toolkit state management and server-side caching, improving average response time by ~35% under peak concurrent load.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="r-section">
+      <div class="r-section-title">Projects</div>
+      <div class="r-item">
+        <div class="r-item-header">
+          <span class="r-item-title">Nexus — Video Hosting Backend</span>
+          <span class="r-item-date">Node.js · Express.js · MongoDB · Cloudinary · JWT</span>
+        </div>
+        <ul>
+          <li>Architected a multi-entity backend across 6+ Mongoose schemas (users, videos, subscriptions, playlists) with JWT auth (Access/Refresh tokens + HTTP-only cookies), achieving zero auth vulnerabilities in testing.</li>
+          <li>Built 8+ MongoDB aggregation pipelines for real-time analytics; integrated Multer + Cloudinary middlewares reducing media upload processing time by ~50%.</li>
+        </ul>
+      </div>
+      <div class="r-item">
+        <div class="r-item-header">
+          <span class="r-item-title">Zentry — Production-Grade Blogging Platform</span>
+          <span class="r-item-date">React · Redux Toolkit · Tailwind · Appwrite</span>
+        </div>
+        <ul>
+          <li>Scalable platform for 1,000+ users with 3-tier RBAC, real-time editing, and Appwrite OAuth; architected 15+ reusable components reducing feature development time by ~40%.</li>
+          <li>Improved page load performance by ~25% via SEO-optimized slug routing and lazy loading; enforced 100% form schema validation using React Hook Form across all 5+ submission flows.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="r-section">
+      <div class="r-section-title">Achievements</div>
+      <div class="r-item">
+        <ul>
+          <li><strong>1st Prize</strong> — IIT Hyderabad Founders Forum: Won top honors among 200+ national participants.</li>
+          <li><strong>1st Runner-Up</strong> — IIT Madras Boardroom Competition: Placed 2nd out of 50+ teams.</li>
+          <li><strong>1st Runner-Up</strong> — I-Solve Hackathon (Bangalore Traffic Police): 2nd out of 80+ teams in a 24-hour sprint.</li>
+          <li><strong>Finalist</strong> — KPIT K-Impact 2025: Peltier-based EV battery thermal-management system.</li>
+          <li><strong>Intel Unnati Industrial Training</strong>: Fine-tuned 2 LLMs for CPU-based inference, ~85% response accuracy.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="r-section">
+      <div class="r-section-title">Skills</div>
+      <div style="display:flex; flex-wrap:wrap; gap:8px;">
+        <span class="tag">TypeScript</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">Java</span>
+        <span class="tag">GraphQL</span>
+        <span class="tag">React.js</span>
+        <span class="tag">Redux Toolkit</span>
+        <span class="tag">Tailwind CSS</span>
+        <span class="tag">Node.js</span>
+        <span class="tag">Express.js</span>
+        <span class="tag">MongoDB</span>
+        <span class="tag">DrizzleORM</span>
+        <span class="tag">Docker</span>
+        <span class="tag">Kubernetes</span>
+        <span class="tag">GitHub Actions</span>
+        <span class="tag">Vitest</span>
+        <span class="tag">Jest</span>
+        <span class="tag">Appwrite</span>
+        <span class="tag">Cloudinary</span>
+      </div>
+    </div>
+
+</div>
+</details>
+
+
+  </div>
+</div>
+
+<!-- ── FLOATING BOTTOM NAV ───────────────────────────────── -->
+<nav class="bottom-nav" id="bottom-nav">
+
+  <a href="https://praveen24sriv.github.io/portfoliov2" class="nav-item ">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+    </svg>
+    home
+  </a>
+
+  <a href="https://praveen24sriv.github.io/portfoliov2/projects" class="nav-item ">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+    </svg>
+    projects
+  </a>
+
+  <a href="https://praveen24sriv.github.io/portfoliov2/resume" class="nav-item active">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+    </svg>
+    resume
+  </a>
+
+  <div class="nav-divider"></div>
+
+  <!-- Socials -->
+  <a href="https://github.com/praveen24sriv" target="_blank" rel="noopener" class="nav-icon" title="GitHub">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+    </svg>
+  </a>
+
+  <a href="https://www.linkedin.com/in/praveen-raj-srivastav-a226b728b/" target="_blank" rel="noopener" class="nav-icon" title="LinkedIn">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+    </svg>
+  </a>
+
+  <a href="https://x.com/praveen24_raj" target="_blank" rel="noopener" class="nav-icon" title="X / Twitter">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/>
+    </svg>
+  </a>
+
+  <div class="nav-divider"></div>
+
+  <!-- Theme toggle -->
+  <button class="theme-toggle" id="theme-toggle" title="Toggle theme" aria-label="Toggle dark/light mode">
+    <span id="theme-icon">☀️</span>
+  </button>
+</nav>
+
+<script>
+  // ── THEME ───────────────────────────────────────────────
+  const root = document.documentElement;
+  const icon = document.getElementById('theme-icon');
+  const saved = localStorage.getItem('theme') ||
+    (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+
+  function applyTheme(t) {
+    root.setAttribute('data-theme', t);
+    icon.textContent = t === 'dark' ? '☀️' : '🌙';
+    localStorage.setItem('theme', t);
+  }
+  applyTheme(saved);
+
+  document.getElementById('theme-toggle').addEventListener('click', () => {
+    applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  // ── ACTIVE NAV ──────────────────────────────────────────
+  const path = window.location.pathname;
+  document.querySelectorAll('.nav-item').forEach(a => {
+    const href = a.getAttribute('href');
+    if (href === path || (href !== '/' && path.startsWith(href))) {
+      a.classList.add('active');
+    } else {
+      a.classList.remove('active');
+    }
+  });
+
+  // ── REVEAL ON SCROLL ─────────────────────────────────────
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        e.target.style.transitionDelay = (i % 4) * 70 + 'ms';
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => io.observe(el));
+
+  // ── PROGRESS BAR ─────────────────────────────────────────
+  const bar = document.getElementById('progress-bar');
+  // Simulate fill on page load
+  let prog = 0;
+  bar.style.width = '0%';
+  bar.style.opacity = '1';
+  const fill = setInterval(() => {
+    prog += Math.random() * 18;
+    if (prog >= 85) { clearInterval(fill); prog = 85; }
+    bar.style.width = prog + '%';
+  }, 60);
+  window.addEventListener('load', () => {
+    clearInterval(fill);
+    bar.classList.add('done');
+    setTimeout(() => { bar.style.width = '0'; bar.style.opacity = '1'; bar.classList.remove('done'); }, 500);
+  });
+  // Also fire on internal link clicks
+  document.addEventListener('click', e => {
+    const link = e.target.closest('a');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('http') || href.startsWith('mailto') || href.startsWith('#')) return;
+    bar.classList.remove('done');
+    bar.style.opacity = '1';
+    bar.style.width = '0%';
+    let p = 0;
+    const t = setInterval(() => {
+      p += Math.random() * 20;
+      if (p >= 80) { clearInterval(t); p = 80; }
+      bar.style.width = p + '%';
+    }, 50);
+  });
+
+  // ── COPY EMAIL ───────────────────────────────────────────
+  document.querySelectorAll('.copy-email-btn').forEach(btn => {
+    const email = btn.dataset.email;
+    const toast = btn.parentElement.querySelector('.copy-toast');
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(email);
+      } catch {
+        // fallback for older browsers
+        const ta = document.createElement('textarea');
+        ta.value = email;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+      btn.classList.add('copied');
+      if (toast) toast.classList.add('show');
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        if (toast) toast.classList.remove('show');
+      }, 2000);
+    });
+  });
+</script>
+
+</body>
+</html>
